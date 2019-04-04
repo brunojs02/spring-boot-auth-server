@@ -1,0 +1,24 @@
+# Server
+server.port = 8080
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.url = jdbc:mysql://localhost:3306/database
+spring.datasource.username = username
+spring.datasource.password = password
+
+## Hibernate Properties
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto = update
+
+# SQL
+spring.jpa.show-sql = true
+spring.jpa.properties.hibernate.format_sql = true
+
+# Oauth
+config.oauth2.privateKey = 
+config.oauth2.publicKey = 
+config.oauth2.clientId = client
+config.oauth2.clientSecret = 1234
