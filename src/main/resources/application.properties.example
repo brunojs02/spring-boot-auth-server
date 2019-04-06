@@ -18,7 +18,8 @@ spring.jpa.show-sql = true
 spring.jpa.properties.hibernate.format_sql = true
 
 # Oauth
-config.oauth2.privateKey = 
-config.oauth2.publicKey = 
+config.oauth2.keystore = 
+config.oauth2.keypass = 
+config.oauth2.alias = 
 config.oauth2.clientId = client
 config.oauth2.clientSecret = 1234

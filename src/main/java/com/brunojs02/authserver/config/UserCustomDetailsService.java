@@ -21,7 +21,7 @@ public class UserCustomDetailsService implements UserDetailsService {
 		if (user != null) {
 			return new UserCustomDetails(user);
 		}
-		throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
+		throw new UsernameNotFoundException("Usuário e/ou senha inválida");
 	}
 
 }

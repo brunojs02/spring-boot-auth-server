@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 @Configuration
 public class Oauth2Configuration extends AuthorizationServerConfigurerAdapter {
@@ -23,11 +25,14 @@ public class Oauth2Configuration extends AuthorizationServerConfigurerAdapter {
 	@Value("${config.oauth2.clientSecret}")
 	private String clientSecret;
 
-	@Value("${config.oauth2.privateKey}")
-	private String privateKey;
+	@Value("${config.oauth2.keystore}")
+	private String keystore;
 
-	@Value("${config.oauth2.publicKey}")
-	private String publicKey;
+	@Value("${config.oauth2.keypass}")
+	private String keypass;
+
+	@Value("${config.oauth2.alias}")
+	private String alias;
 
 	@Autowired
 	@Qualifier("authenticationManagerBean")
@@ -62,8 +67,9 @@ public class Oauth2Configuration extends AuthorizationServerConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter tokenEnhancer() {
 		JwtAccessTokenConverter converter = new CustomTokenEnhancer();
-		converter.setSigningKey(privateKey);
-		converter.setVerifierKey(publicKey);
+		KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(keystore),
+				keypass.toCharArray());
+		converter.setKeyPair(keyStoreKeyFactory.getKeyPair(alias));
 		return converter;
 	}
 }
