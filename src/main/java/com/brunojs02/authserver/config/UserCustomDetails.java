@@ -9,22 +9,20 @@ import org.springframework.security.core.userdetails.User;
 
 import com.brunojs02.authserver.entities.UserEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class UserCustomDetails extends User {
 
 	private static final long serialVersionUID = 1L;
+
+	@Getter
+	@Setter
 	private Long id;
 
 	public UserCustomDetails(UserEntity user) {
 		super(user.getUsername(), user.getPassword(), getRoles());
 		this.id = user.getId();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	private static Collection<GrantedAuthority> getRoles() {
